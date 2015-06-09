@@ -3,7 +3,7 @@
 
 	<groupId>be.unamur.info</groupId>
 	<artifactId>yami-tool</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 
 	<name>YAMI - Yet Another Model Inference tool</name>
 	<description>
@@ -72,9 +72,9 @@
 	</properties>
 
 	<scm>
-		<connection>scm:svn:http://yami-tool.googlecode.com/svn/tags/yami-tool-1.0.0</connection>
-		<developerConnection>scm:svn:https://yami-tool.googlecode.com/svn/tags/yami-tool-1.0.0</developerConnection>
-		<url>http://yami-tool.googlecode.com/svn/tags/yami-tool-1.0.0</url>
+		<connection>scm:svn:http://yami-tool.googlecode.com/svn/trunk/</connection>
+		<developerConnection>scm:svn:https://yami-tool.googlecode.com/svn/trunk/</developerConnection>
+		<url>http://yami-tool.googlecode.com/svn/trunk/</url>
 	</scm>
 
 	<dependencies>
