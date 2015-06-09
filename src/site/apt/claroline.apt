@@ -1,0 +1,16 @@
+Case Study: Claroline
+
+	{{{http://www.claroline.net}Claroline}} is an open-source web-based application dedicated to learning and online 
+	collaborative work. The instance of Claroline at University of Namur ({{{http://webcampus.unamur.be}Webcampus}}) 
+	is the main communication channel between students and lecturers. Students may register to courses and download 
+	documents, receive announcements, submit their assignments, perform online exercises, etc.  
+	
+	We reverse enginneer the different behavioural models from the anonymized Apache access log provided by the IT support team 
+	of the university. This file (5,26 Go) contains all the HTTP requests made to access the Claroline instance 
+	from January 1st to October 1st 2013. We chose to consider only requests to access PHP pages accessible to 
+	users. It represents a total of 12.689.030 HTTP requests. We setup an automated way to infer the usage model 
+	from the log, as it would be intractable to do so manually. Each entry of the file represents a single access 
+	to a page:  we had to reconstruct the behaviour of a user by grouping requests. 
+
+	Please, see {{{https://projects.info.unamur.be/vibes/case-study-claroline.html}VIBeS: Claroline case study}} to 
+	download the inferred models.

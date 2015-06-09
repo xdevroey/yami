@@ -1,0 +1,351 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>be.unamur.info</groupId>
+	<artifactId>yami-tool</artifactId>
+	<version>1.0.0</version>
+
+	<name>YAMI - Yet Another Model Inference tool</name>
+	<description>
+		Usage models (Discrete Time Markov Chain (DTMC)) represents the usage scenarios of the software as well as their 
+		probability.  This allows one to determine the relative importance of execution scenarios (with respect 
+		to other). This project explores the possibility to reverse engineer usage models based on execution traces
+		contained in application logs.
+	</description>
+	<url>http://projects.info.unamur.be/vibes/</url>
+	<organization>
+		<name>PReCISE, University of Namur</name>
+		<url>http://www.unamur.be/en/precise/</url>
+	</organization>
+	<inceptionYear>2014</inceptionYear>
+	<licenses>
+		<license>
+			<name>MIT license (also X11)</name>
+			<url>http://www.spdx.org/licenses/MIT</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>xde</id>
+			<name>Xavier Devroey</name>
+			<email>xavier.devroey@unamur.be</email>
+			<url>http://directory.unamur.be/staff/xdevroey</url>
+			<organization>PReCISE - UNamur</organization>
+			<organizationUrl>http://www.unamur.be/en/precise/</organizationUrl>
+			<properties>
+				<picUrl>http://directory.unamur.be/photos/xdevroey-small.jpg</picUrl>
+			</properties>
+		</developer>
+		<developer>
+			<id>gpe</id>
+			<name>Gilles Perrouin</name>
+			<email>gilles.perrouin@unamur.be</email>
+			<url>http://directory.unamur.be/staff/gperrouin</url>
+			<organization>PReCISE - UNamur</organization>
+			<organizationUrl>http://www.unamur.be/en/precise/</organizationUrl>
+			<properties>
+				<picUrl>http://directory.unamur.be/photos/gperroui-small.jpg</picUrl>
+			</properties>
+		</developer>
+	</developers>
+
+	<properties>
+		<license.licenseName>mit</license.licenseName>
+		<guava.version>14.0.1</guava.version>
+		<java.version>1.6</java.version>
+		<junit.version>4.11</junit.version>
+		<log4j.version>1.2.15</log4j.version>
+		<named-regexp.version>0.2.3</named-regexp.version>
+		<slf4j.version>1.7.5</slf4j.version>
+		<vibes.version>1.0.0</vibes.version>
+		<!-- Maven Plugins Versions -->
+		<build-helper-maven-plugin.version>1.1</build-helper-maven-plugin.version>
+		<license-maven-plugin.version>1.7</license-maven-plugin.version>
+		<maven-assembly-plugin.version>2.5.2</maven-assembly-plugin.version>
+		<maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
+		<maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+		<maven-site-plugin.version>3.3</maven-site-plugin.version>
+		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.3</nexus-staging-maven-plugin.version>
+		<wagon-ssh.version>1.0</wagon-ssh.version>
+	</properties>
+
+	<scm>
+		<connection>scm:svn:http://yami-tool.googlecode.com/svn/tags/yami-tool-1.0.0</connection>
+		<developerConnection>scm:svn:https://yami-tool.googlecode.com/svn/tags/yami-tool-1.0.0</developerConnection>
+		<url>http://yami-tool.googlecode.com/svn/tags/yami-tool-1.0.0</url>
+	</scm>
+
+	<dependencies>
+		<!-- See lib/README.txt to add this dependency to local repository <dependency> 
+			<groupId>inferPfa</groupId> <artifactId>inferPFA</artifactId> <version>1.0.0</version> 
+			</dependency> -->
+		<dependency>
+			<groupId>be.unamur.info</groupId>
+			<artifactId>vibes-core</artifactId>
+			<version>${vibes.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>be.unamur.info</groupId>
+			<artifactId>vibes-dsl</artifactId>
+			<version>${vibes.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.tony19</groupId>
+			<artifactId>named-regexp</artifactId>
+			<version>${named-regexp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- Use JDK 1.6 language features in all projects -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<!-- Generate the executable jar file -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>${maven-assembly-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>package-jar-with-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<archive>
+								<manifestEntries>
+									<url>${project.url}</url>
+								</manifestEntries>
+								<manifest>
+									<addClasspath>true</addClasspath>
+									<mainClass>be.unamur.inference.main.Main</mainClass>
+								</manifest>
+							</archive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${maven-site-plugin.version}</version>
+				<dependencies>
+					<dependency><!-- add support for ssh/scp -->
+						<groupId>org.apache.maven.wagon</groupId>
+						<artifactId>wagon-ssh</artifactId>
+						<version>${wagon-ssh.version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>attach-descriptor</id>
+						<goals>
+							<goal>attach-descriptor</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>${license-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>update-file-header</id>
+						<goals>
+							<goal>update-file-header</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>download-licenses</id>
+						<goals>
+							<goal>download-licenses</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>update-project-license</id>
+						<goals>
+							<goal>update-project-license</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Create source code jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven-source-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Create javadoc jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Sign files -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>${maven-gpg-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>${nexus-staging-maven-plugin.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>license-maven-plugin</artifactId>
+										<versionRange>[1.7,)</versionRange>
+										<goals>
+											<goal>update-project-license</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin.version}</version>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<site>
+			<id>sunset.info.fundp.ac.be</id>
+			<name>YAMI tool - Yet Another Model Inference tool</name>
+			<url>scp://sunset.info.fundp.ac.be/home/rouge/staff/xde/www-yami</url>
+		</site>
+	</distributionManagement>
+
+</project>
