@@ -99,8 +99,8 @@ public class UserSession<T extends UserRequest> implements Iterable<T> {
 	 *            added to the session (request.getTime() > this.getEndTime() ).
 	 */
 	public void enqueue(T request) {
-		checkArgument((this.endTime == null)
-				|| (request.getTime().compareTo(endTime) >= 0));
+//		checkArgument((this.endTime == null)
+//				|| (request.getTime().compareTo(endTime) >= 0));
 		if (this.session.isEmpty()) {
 			this.startTime = request.getTime();
 		}

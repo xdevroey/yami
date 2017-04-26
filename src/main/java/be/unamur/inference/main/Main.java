@@ -13,92 +13,120 @@ import be.unamur.inference.web.apache.ApacheLogFormatPatternBuilder;
 import be.unamur.inference.web.apache.ApacheUserRequest;
 import be.unamur.inference.web.apache.ApacheUserSession;
 import be.unamur.inference.web.apache.ApacheUserSessionBuilder;
-import be.unamur.inference.web.apache.UserRequesRRNKeyGenerator;
+import be.unamur.inference.web.apache.UserRequesRRKeyGenerator;
 import be.unamur.transitionsystem.usagemodel.UsageModel;
 
 import static be.unamur.transitionsystem.dsl.TransitionSystemXmlPrinter.*;
+import com.google.common.collect.Lists;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This is the default Main class provided with the library. See source code for
  * usage model inference example.
- * 
+ *
  * @author Xavier Devroey - xavier.devroey@unamur.be
- * 
+ *
  */
 public class Main {
 
-	private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
-	/**
-	 * Create a usage model from a Wordpress Apache Log.
-	 */
-	public static void main(String[] args) throws Exception {
+    /**
+     * Create a usage model from a Wordpress Apache Log.
+     */
+    public static void main(String[] args) throws Exception {
 
-		// Input Log file is the first parameter provided to the application
-		File input = new File(args[0]);
+        // Input Log file is the first parameter provided to the application
+        File input = new File(args[0]);
 
-		// The bigram which will construct the model
-		final Bigram<ApacheUserRequest> bigram = new Bigram<ApacheUserRequest>(
-				UserRequesRRNKeyGenerator.getInstance());
+        long startTime = System.currentTimeMillis();
 
-		// The session builder (Apache sessions in this case)
-		ApacheUserSessionBuilder builder = ApacheUserSessionBuilder.newInstance()
-		// Configure the log format to use 
-				.logFormat(ApacheLogFormatPatternBuilder.COMBINED_LOG_FORMAT);
+        // The bigram which will construct the model
+        final Bigram<ApacheUserRequest> bigram = new Bigram<ApacheUserRequest>(
+                UserRequesRRKeyGenerator.getInstance());
 
-		// Add session listener that will enrich the model (via bigram) using the session
-		builder.addListener(new UserSessionProcessor<ApacheUserSession>() {
-			int i = 0;
+        // The session builder (Apache sessions in this case)
+        ApacheUserSessionBuilder builder = ApacheUserSessionBuilder.newInstance()
+                // Configure the log format to use 
+                .logFormat(ApacheLogFormatPatternBuilder.COMBINED_LOG_FORMAT);
 
-			@Override
-			public void process(ApacheUserSession session) {
-				i++;
-				System.err.println("" + i + " sessions processed");
-				System.err.println(session);
-				bigram.addTrace(session.iterator());
-			}
-		});
+        // Add session listener that will enrich the model (via bigram) using the session
+        final List<Integer> sizes = Lists.newArrayList();
+        builder.addListener(new UserSessionProcessor<ApacheUserSession>() {
+            int i = 0;
 
-		// Include resources ending by '.php' or '/' or '.js'
-		builder.include(new UserRequestFilter<ApacheUserRequest>() {
-			@Override
-			public boolean filter(ApacheUserRequest request) {
-				if (request == null) {
-					logger.error("Request is null!");
-					return false;
-				}
-				return request.getResource() != null
-						&& (request.getResource().endsWith(".php")
-								|| request.getResource().endsWith("/") || request
-								.getResource().endsWith(".js"));
-			}
-		});
+            @Override
+            public void process(ApacheUserSession session) {
+                sizes.add(session.size());
+                i++;
+                System.err.println("" + i + " sessions processed");
+                System.err.println(session);
+                bigram.addTrace(session.iterator());
+            }
+        });
 
-		// Exclude localhost and jetpack requests
-		builder.exclude(new UserRequestFilter<ApacheUserRequest>() {
-			@Override
-			public boolean filter(ApacheUserRequest request) {
-				if (request == null) {
-					logger.error("Request is null!");
-					return true;
-				}
-				return request.getClient() == null
-						|| request.getClient().equals("localhost")
-						|| request.getClient().equals("127.0.0.1")
-						|| (request.getUserAgent() != null && request
-								.getUserAgent()
-								.equals("jetmon/1.0 (Jetpack Site Uptime Monitor by WordPress.com)"));
-			}
-		});
+        // Include resources ending by '.php' or '/' or '.js'
+        builder.include(new UserRequestFilter<ApacheUserRequest>() {
+            @Override
+            public boolean filter(ApacheUserRequest request) {
+                if (request == null) {
+                    LOG.error("Request is null!");
+                    return false;
+                }
+                return request.getResource() != null
+                        && (request.getResource().endsWith(".php")
+                        || request.getResource().endsWith("/") || request
+                        .getResource().endsWith(".js"));
+            }
+        });
 
-		// Launch the session building from the input file 
-		builder.buildSessions(new FileInputStream(input));
+        // Exclude localhost and jetpack requests
+        builder.exclude(new UserRequestFilter<ApacheUserRequest>() {
+            @Override
+            public boolean filter(ApacheUserRequest request) {
+                if (request == null) {
+                    LOG.error("Request is null!");
+                    return true;
+                }
+                return request.getClient() == null
+                        || request.getClient().equals("localhost")
+                        || request.getClient().equals("127.0.0.1")
+                        || (request.getUserAgent() != null && request
+                        .getUserAgent()
+                        .equals("jetmon/1.0 (Jetpack Site Uptime Monitor by WordPress.com)"));
+            }
+        });
 
-		// Get the usage model from the Bigram
-		UsageModel model = bigram.getModel();
+        // Launch the session building from the input file 
+        builder.buildSessions(new FileInputStream(input));
 
-		// Print XML model on System.out
-		print(model, System.out);
-	}
+        // Get the usage model from the Bigram
+        UsageModel model = bigram.getModel();
+
+        // Print XML model on System.out
+        print(model, System.out);
+
+        // Print statistics
+        double sum = 0.0;
+        for (Integer i : sizes) {
+            sum = sum + i;
+        }
+        double mean = sum / sizes.size();
+
+        double temp = 0;
+        for (Integer i : sizes) {
+            temp = temp + (i - mean) * (i - mean);
+        }
+        double variance = temp / sizes.size();
+        double stdev = Math.sqrt(variance);
+        
+        System.err.println("Sessions count = " + sizes.size());
+        System.err.println("Average session size = " + mean);
+        System.err.println("Stdev session size = " + stdev);
+        System.err.println("Min session size = " + Collections.min(sizes));
+        System.err.println("Max session size = " + Collections.max(sizes));
+        System.err.println("Computation time = " + (System.currentTimeMillis() - startTime) / 1000 + " sec.");
+    }
 
 }

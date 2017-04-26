@@ -28,8 +28,8 @@ import be.unamur.transitionsystem.usagemodel.UsageModel;
  */
 public class Bigram<T> {
 
-	public static final String START_STATE_ID = "0";
-	public static final String END_STATE_ID = "X";
+	public static final String START_STATE_ID = "s0";
+	public static final String END_STATE_ID = "sX";
 
 	private static final Logger logger = LoggerFactory.getLogger(Bigram.class);
 

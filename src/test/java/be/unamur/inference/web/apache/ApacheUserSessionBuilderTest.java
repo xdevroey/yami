@@ -53,17 +53,17 @@ public class ApacheUserSessionBuilderTest {
 		logger.debug("Built sessions: {}", sessions);
 		assertEquals("Wrong number of sessions!", 4, sessions.size());
 		
-		assertEquals("Wrong usert Id!", "1.1.1.1",sessions.get(0).getUserId());
-		assertEquals("Wrong number of entries!", 6, sessions.get(0).size()); 
-		
-		assertEquals("Wrong usert Id!", "1.1.1.2",sessions.get(1).getUserId());
-		assertEquals("Wrong number of entries!", 6, sessions.get(1).size());
-		
-		assertEquals("Wrong usert Id!", "1.1.1.3",sessions.get(2).getUserId());
-		assertEquals("Wrong number of entries!", 6, sessions.get(2).size());
-		
-		assertEquals("Wrong usert Id!", "1.1.1.1",sessions.get(3).getUserId());
-		assertEquals("Wrong number of entries!", 6, sessions.get(3).size());
+                for(ApacheUserSession session : sessions){
+                    if(session.getUserId().equals("1.1.1.1")){
+                        assertEquals("Wrong number of entries!", 6, session.size()); 
+                    } else if(session.getUserId().equals("1.1.1.2")){
+                        assertEquals("Wrong number of entries!", 6, session.size()); 
+                    } else if(session.getUserId().equals("1.1.1.3")){
+                        assertEquals("Wrong number of entries!", 6, session.size()); 
+                    } else {
+                        fail("Unexpected user session");
+                    }
+                }
 		
 	}
 

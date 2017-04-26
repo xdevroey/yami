@@ -196,7 +196,7 @@ public class ApacheLogFormatPatternBuilderTest {
 
 	public void testGetPatternREQUEST_FORMATInvalid2() throws Exception {
 		Pattern pattern = ApacheLogFormatPatternBuilder.getInstance().buildPattern(REQUEST_FORMAT);
-		String line = "ùdsmjfmldksf lkjs mlksjfs";
+		String line = "qsddsmjfmldksf lkjs mlksjfs";
 		Matcher matcher = pattern.matcher(line);
 		assertFalse("Should not match line "+line, matcher.matches());
 	}

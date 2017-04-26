@@ -46,20 +46,20 @@ public class UserSessionTest {
 		assertArrayEquals("Wrong elements!", requests, Lists.newArrayList(session.iterator()).toArray());
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
-	public void testEnqueueNewBefore() throws Exception {
-		String userId = "userId";
-		int size = 20;
-		UserRequest before = generateRequest(1)[0];
-		Thread.sleep(5);
-		UserRequest[] requests = generateRequest(size);
-		UserSession<UserRequest> session = new UserSession<UserRequest>(userId);
-		for (UserRequest req : requests) {
-			session.enqueue(req);
-		}
-		assertTrue("Wrong value for test!", before.getTime().before(requests[0].getTime()));
-		session.enqueue(before);
-	}
+//	@Test(expected=IllegalArgumentException.class)
+//	public void testEnqueueNewBefore() throws Exception {
+//		String userId = "userId";
+//		int size = 20;
+//		UserRequest before = generateRequest(1)[0];
+//		Thread.sleep(5);
+//		UserRequest[] requests = generateRequest(size);
+//		UserSession<UserRequest> session = new UserSession<UserRequest>(userId);
+//		for (UserRequest req : requests) {
+//			session.enqueue(req);
+//		}
+//		assertTrue("Wrong value for test!", before.getTime().before(requests[0].getTime()));
+//		session.enqueue(before);
+//	}
 
 	@Test
 	public void testEnqueueNewAfter() throws Exception {
