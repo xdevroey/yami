@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import be.unamur.inference.ngram.Bigram;
-import be.unamur.inference.web.UserRequestFilter;
 import be.unamur.inference.web.UserSessionProcessor;
 import be.unamur.inference.web.apache.ApacheLogFormatPatternBuilder;
 import be.unamur.inference.web.apache.ApacheUserRequest;
@@ -43,7 +42,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
 
         // The bigram which will construct the model
-        final Bigram<ApacheUserRequest> bigram = new Bigram<ApacheUserRequest>(
+        final Bigram<ApacheUserRequest> bigram = new Bigram<>(
                 UserRequesRRKeyGenerator.getInstance());
 
         // The session builder (Apache sessions in this case)
@@ -67,35 +66,29 @@ public class Main {
         });
 
         // Include resources ending by '.php' or '/' or '.js'
-        builder.include(new UserRequestFilter<ApacheUserRequest>() {
-            @Override
-            public boolean filter(ApacheUserRequest request) {
-                if (request == null) {
-                    LOG.error("Request is null!");
-                    return false;
-                }
-                return request.getResource() != null
-                        && (request.getResource().endsWith(".php")
-                        || request.getResource().endsWith("/") || request
-                        .getResource().endsWith(".js"));
+        builder.include((ApacheUserRequest request) -> {
+            if (request == null) {
+                LOG.error("Request is null!");
+                return false;
             }
+            return request.getResource() != null
+                    && (request.getResource().endsWith(".php")
+                    || request.getResource().endsWith("/") || request
+                            .getResource().endsWith(".js"));
         });
 
         // Exclude localhost and jetpack requests
-        builder.exclude(new UserRequestFilter<ApacheUserRequest>() {
-            @Override
-            public boolean filter(ApacheUserRequest request) {
-                if (request == null) {
-                    LOG.error("Request is null!");
-                    return true;
-                }
-                return request.getClient() == null
-                        || request.getClient().equals("localhost")
-                        || request.getClient().equals("127.0.0.1")
-                        || (request.getUserAgent() != null && request
-                        .getUserAgent()
-                        .equals("jetmon/1.0 (Jetpack Site Uptime Monitor by WordPress.com)"));
+        builder.exclude((ApacheUserRequest request) -> {
+            if (request == null) {
+                LOG.error("Request is null!");
+                return true;
             }
+            return request.getClient() == null
+                    || request.getClient().equals("localhost")
+                    || request.getClient().equals("127.0.0.1")
+                    || (request.getUserAgent() != null && request
+                            .getUserAgent()
+                            .equals("jetmon/1.0 (Jetpack Site Uptime Monitor by WordPress.com)"));
         });
 
         // Launch the session building from the input file 
