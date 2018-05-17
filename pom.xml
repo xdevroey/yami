@@ -163,17 +163,7 @@
             </plugin>
         </plugins>
     </build>
-	
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
-            </plugin>
-        </plugins>
-    </reporting>
-    
+
     <profiles>
         <profile>
             <activation>
@@ -263,38 +253,6 @@
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
-                    <!--
-                    <plugin>
-                        <groupId>com.github.github</groupId>
-                        <artifactId>site-maven-plugin</artifactId>
-                        <version>${site-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>site</goal>
-                                </goals>
-                                <phase>site-deploy</phase>
-                                <configuration>
-                                    <server>github</server>
-                                    <message>Building site for YAMI project</message>
-                                    <path>${site.path}</path>
-                                    <merge>true</merge>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    -->
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>${nexus-staging-maven-plugin.version}</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-release-plugin</artifactId>
@@ -310,5 +268,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>
