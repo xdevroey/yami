@@ -1,5 +1,25 @@
 package be.unamur.inference.main;
 
+/*-
+ * #%L
+ * YAMI - Yet Another Model Inference tool
+ * %%
+ * Copyright (C) 2014 - 2018 University of Namur
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -13,9 +33,9 @@ import be.unamur.inference.web.apache.ApacheUserRequest;
 import be.unamur.inference.web.apache.ApacheUserSession;
 import be.unamur.inference.web.apache.ApacheUserSessionBuilder;
 import be.unamur.inference.web.apache.UserRequesRRKeyGenerator;
-import be.unamur.transitionsystem.usagemodel.UsageModel;
+import be.vibes.dsl.io.Xml;
+import be.vibes.ts.UsageModel;
 
-import static be.unamur.transitionsystem.dsl.TransitionSystemXmlPrinter.*;
 import com.google.common.collect.Lists;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +52,9 @@ public class Main {
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
     /**
-     * Create a usage model from a Wordpress Apache Log.
+     * Create a usage model from a WordPress Apache Log.
+     * @param args Arguments from the command line. Input file name must be at position 0.
+     * @throws java.lang.Exception Because shit happens... 
      */
     public static void main(String[] args) throws Exception {
 
@@ -54,13 +76,12 @@ public class Main {
         final List<Integer> sizes = Lists.newArrayList();
         builder.addListener(new UserSessionProcessor<ApacheUserSession>() {
             int i = 0;
-
             @Override
             public void process(ApacheUserSession session) {
                 sizes.add(session.size());
                 i++;
-                System.err.println("" + i + " sessions processed");
-                System.err.println(session);
+                LOG.trace("Sessions processed: {}", i);
+                LOG.trace("Session: {}", session);
                 bigram.addTrace(session.iterator());
             }
         });
@@ -98,7 +119,7 @@ public class Main {
         UsageModel model = bigram.getModel();
 
         // Print XML model on System.out
-        print(model, System.out);
+        Xml.print(model, System.out);
 
         // Print statistics
         double sum = 0.0;
