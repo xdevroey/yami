@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * A usage model factory to be used by the {@link Bigram} class. This implementation
+ * retains the number of occurrences of the transitions to define their
+ * probabilities.
  *
  * @author Xavier Devroey - xavier.devroey@gmail.com
  */

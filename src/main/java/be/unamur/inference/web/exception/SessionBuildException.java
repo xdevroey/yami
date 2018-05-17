@@ -21,7 +21,7 @@ package be.unamur.inference.web.exception;
  */
 
 /**
- * This exception represents an error occuring the building of the sessions.
+ * This exception represents an error occurring the building of the sessions.
  * 
  * @author Xavier Devroey - xavier.devroey@unamur.be
  * 

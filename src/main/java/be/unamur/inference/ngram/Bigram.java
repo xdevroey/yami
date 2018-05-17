@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  * <ul>
  * <li>Creation of the object by providing a key generator used to generate the
  * key of each trace's element</li>
- * <li>Adding traces to infer the model using addTrace(List&ltT&gt) method.</li>
+ * <li>Adding traces to infer the model using addTrace(List&lt;T&gt;) method.</li>
  * <li>Getting he {@link UsageModel} using getModel() method.</li>
  * </ul>
  *
@@ -97,10 +97,10 @@ public class Bigram<T> {
     }
 
     private int count = 1;
-    
+
     private String getState(String id) {
         String state = statesIds.get(id);
-        if(state == null){
+        if (state == null) {
             state = "s" + count;
             count++;
         }

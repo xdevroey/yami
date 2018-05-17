@@ -19,7 +19,6 @@ package be.unamur.inference.main;
  * limitations under the License.
  * #L%
  */
-
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -53,8 +52,10 @@ public class Main {
 
     /**
      * Create a usage model from a WordPress Apache Log.
-     * @param args Arguments from the command line. Input file name must be at position 0.
-     * @throws java.lang.Exception Because shit happens... 
+     *
+     * @param args Arguments from the command line. Input file name must be at
+     * position 0.
+     * @throws java.lang.Exception Because shit happens...
      */
     public static void main(String[] args) throws Exception {
 
@@ -76,6 +77,7 @@ public class Main {
         final List<Integer> sizes = Lists.newArrayList();
         builder.addListener(new UserSessionProcessor<ApacheUserSession>() {
             int i = 0;
+
             @Override
             public void process(ApacheUserSession session) {
                 sizes.add(session.size());
@@ -95,7 +97,7 @@ public class Main {
             return request.getResource() != null
                     && (request.getResource().endsWith(".php")
                     || request.getResource().endsWith("/") || request
-                            .getResource().endsWith(".js"));
+                    .getResource().endsWith(".js"));
         });
 
         // Exclude localhost and jetpack requests
@@ -108,8 +110,8 @@ public class Main {
                     || request.getClient().equals("localhost")
                     || request.getClient().equals("127.0.0.1")
                     || (request.getUserAgent() != null && request
-                            .getUserAgent()
-                            .equals("jetmon/1.0 (Jetpack Site Uptime Monitor by WordPress.com)"));
+                    .getUserAgent()
+                    .equals("jetmon/1.0 (Jetpack Site Uptime Monitor by WordPress.com)"));
         });
 
         // Launch the session building from the input file 
@@ -134,7 +136,7 @@ public class Main {
         }
         double variance = temp / sizes.size();
         double stdev = Math.sqrt(variance);
-        
+
         System.err.println("Sessions count = " + sizes.size());
         System.err.println("Average session size = " + mean);
         System.err.println("Stdev session size = " + stdev);

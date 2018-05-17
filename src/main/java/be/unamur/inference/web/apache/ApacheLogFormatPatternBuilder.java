@@ -139,7 +139,7 @@ public class ApacheLogFormatPatternBuilder {
 
     /**
      * The {@link Locale} value used in the dates of the log. This value has to
-     * be provided to {@link DateParser} objects.
+     * be provided to DateParser objects.
      */
     public static final Locale DATE_LOCALE = Locale.ENGLISH;
 
@@ -150,6 +150,7 @@ public class ApacheLogFormatPatternBuilder {
 
     /**
      * Return the instance of this singleton class.
+     *
      * @return The instance of this singleton.
      */
     public static ApacheLogFormatPatternBuilder getInstance() {

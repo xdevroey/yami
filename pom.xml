@@ -166,11 +166,7 @@
 
     <profiles>
         <profile>
-            <activation>
-                <property>
-                    <name>deploy</name> <!-- mvn release:prepare release:perform -P deploy -->
-                </property>
-            </activation>
+            <id>deploycentral</id> <!-- mvn release:prepare release:perform -P deploy -->
             <build>
                 <plugins>
                     <!-- Add licenses to source code and project -->
