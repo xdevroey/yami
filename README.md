@@ -1,5 +1,7 @@
 # Yet Another Model Inference tool
 
+![YAMI Logo](yami.png)
+
 ## About
 
 Model inference has been developed over years for various purposes: reverse engineering
@@ -125,4 +127,24 @@ UsageModel model = bigram.getModel();
 
 // Print XML model on System.out
 Xml.print(model, System.out);
+```
+
+## References
+
+This tool has been developped and used in the following publication:
+
+```bibtex
+@article{Devroey2017,
+        author = {Devroey, Xavier and Perrouin, Gilles and Cordy, Maxime and Samih, Hamza and Legay, Axel and Schobbens, Pierre-Yves and Heymans, Patrick},
+        title = {{Statistical prioritization for software product line testing: an experience report}},
+        journal = {Software {\&} Systems Modeling},
+        volume = {16},
+        number = {1},
+        month = {feb},
+        pages = {153--171},
+        issn = {1619-1366},
+        publisher = {Springer},
+        doi = {10.1007/s10270-015-0479-8},
+        year = {2017}
+}
 ```
