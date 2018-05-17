@@ -3,7 +3,7 @@
 
     <groupId>be.unamur.info</groupId>
     <artifactId>yami-tool</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
 
     <name>YAMI - Yet Another Model Inference tool</name>
     <description>
@@ -61,7 +61,8 @@
         <connection>scm:git:https://github.com/xdevroey/yami.git</connection>
         <developerConnection>scm:git:https://github.com/xdevroey/yami.git</developerConnection>
         <url>https://github.com/xdevroey/yami.git</url>
-    </scm>
+      <tag>yami-tool-1.0.1</tag>
+  </scm>
 
     <dependencies>
         <!-- See lib/README.txt to add this dependency to local repository <dependency> 
