@@ -38,6 +38,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <license.licenseName>apache_v2</license.licenseName>
+        <gson.version>2.8.2</gson.version>
         <guava.version>24.1-jre</guava.version>
         <hamcrest-all.version>1.3</hamcrest-all.version>
         <junit.version>4.12</junit.version>
@@ -61,8 +62,8 @@
         <connection>scm:git:https://github.com/xdevroey/yami.git</connection>
         <developerConnection>scm:git:https://github.com/xdevroey/yami.git</developerConnection>
         <url>https://github.com/xdevroey/yami.git</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <dependencies>
         <!-- See lib/README.txt to add this dependency to local repository <dependency> 
@@ -82,6 +83,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.tony19</groupId>
