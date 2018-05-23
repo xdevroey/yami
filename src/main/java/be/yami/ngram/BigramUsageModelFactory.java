@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class BigramUsageModelFactory extends UsageModelFactory {
 
-    // INV: source, target, action, count>
+    // INV: <source, target, action, count>
     private final Map<String, Map<String, Map<String, Integer>>> transitions;
 
     private final Map<String, Integer> outgoingCount;

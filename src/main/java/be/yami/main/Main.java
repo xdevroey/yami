@@ -65,7 +65,7 @@ public class Main {
         long startTime = System.currentTimeMillis();
 
         // The bigram which will construct the model
-        final Bigram<ApacheUserRequest> bigram = new Bigram<>(
+        final Bigram<ApacheUserRequest> bigram = new Bigram<>("apache",
                 UserRequesRRKeyGenerator.getInstance());
 
         // The session builder (Apache sessions in this case)
@@ -84,7 +84,7 @@ public class Main {
                 i++;
                 LOG.trace("Sessions processed: {}", i);
                 LOG.trace("Session: {}", session);
-                bigram.addTrace(session.iterator());
+                bigram.addTrace(session);
             }
         });
 

@@ -57,10 +57,10 @@ public class BigramTest {
 
 	@Test
     public void testBigramConstruction() throws Exception {
-        final Bigram<ApacheUserRequest> bigram = new Bigram<>(UserRequesRRNKeyGenerator.getInstance());
+        final Bigram<ApacheUserRequest> bigram = new Bigram<>("test", UserRequesRRNKeyGenerator.getInstance());
         ApacheUserSessionBuilder builder = ApacheUserSessionBuilder.newInstance();
         builder.addListener((UserSessionProcessor<ApacheUserSession>) (ApacheUserSession session) -> {
-            bigram.addTrace(session.iterator());
+            bigram.addTrace(session);
         });
         builder.exclude((ApacheUserRequest request) -> request.getClient().equals("0.0.0.0"));
         InputStream in = ApacheUserSessionBuilderTest.class.getClassLoader().getResourceAsStream("test.log");

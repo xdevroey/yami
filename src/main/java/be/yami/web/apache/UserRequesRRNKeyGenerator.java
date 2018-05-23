@@ -49,7 +49,7 @@ public class UserRequesRRNKeyGenerator implements ObjectKeyGenerator<ApacheUserR
 
     @Override
     public String generateKey(ApacheUserRequest request) {
-        StringBuffer buff = new StringBuffer(String.format("%s %s?",
+        StringBuilder buff = new StringBuilder(String.format("%s %s?",
                 request.getRequestType(), request.getResource()));
         String[] parameters = Arrays.copyOf(request.getParameters(),
                 request.getParameters().length);

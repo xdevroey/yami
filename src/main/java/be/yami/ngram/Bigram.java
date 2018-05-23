@@ -21,6 +21,8 @@ package be.yami.ngram;
  */
 import be.vibes.ts.Action;
 import be.vibes.ts.UsageModel;
+import be.yami.Sequence;
+import be.yami.SequenceEntry;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -30,7 +32,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class implements methods to generate a {@link UsageModel} from a set of
- * traces. The model is generated using the bigram method, meaning that the
+ * sequences. The model is generated using the bigram method, meaning that the
  * probability for each next state only depends on the previous state. Usage of
  * the class should be:
  * <ul>
@@ -45,26 +47,30 @@ import org.slf4j.LoggerFactory;
  * @param <T> The object type passed to the ObjectKeyGenerator provided at
  * construction time of Bigram object.
  */
-public class Bigram<T> {
+public class Bigram<T extends SequenceEntry> implements NGram<T>{
 
     public static final String START_STATE_ID = "s0";
     public static final String END_STATE_ID = "sX";
 
     private static final Logger LOG = LoggerFactory.getLogger(Bigram.class);
 
+    private final String name;
     private final ObjectKeyGenerator<T> keyGen;
     private int nbrTraces, nbrEntries;
     private final BigramUsageModelFactory factory;
     private final Map<String, String> statesIds;
 
     //private boolean computed = false;
+    
     /**
      * Create a new {@link Bigram} object.
      *
+     * @param name The name of the ngram.
      * @param keyGen The key generator used to generate the key corresponding to
      * each trace entry.
      */
-    public Bigram(ObjectKeyGenerator<T> keyGen) {
+    public Bigram(String name, ObjectKeyGenerator<T> keyGen) {
+        this.name = name;
         this.keyGen = keyGen;
         this.factory = new BigramUsageModelFactory(START_STATE_ID);
         this.statesIds = new HashMap<>();
@@ -72,17 +78,15 @@ public class Bigram<T> {
         factory.addTransition(START_STATE_ID, Action.EPSILON_ACTION, START_STATE_ID);
     }
 
-    /**
-     * Add a trace to the bigram. This trace is used to enrich the model.
-     *
-     * @param trace The trace to add.
-     */
-    public void addTrace(Iterator<T> trace) {
+    @Override
+    public void addTrace(Sequence<T> seq) {
+        LOG.debug("Adding trace {} to model", seq);
         //computed = false;
         String state = START_STATE_ID;
         String next;
         String key;
         T request;
+        Iterator<T> trace = seq.iterator();
         while (trace.hasNext()) {
             request = trace.next();
             key = this.keyGen.generateKey(request);
@@ -108,15 +112,14 @@ public class Bigram<T> {
         return state;
     }
 
-    /**
-     * Return the model inferred from the given traces. This method should be
-     * called once all the traces have been added to the {@link Bigram}
-     * instance.
-     *
-     * @return The inferred model.
-     */
+    @Override
     public UsageModel getModel() {
         return this.factory.build();
     }
 
+    @Override
+    public String getName() {
+        return this.name;
+    }
+    
 }
