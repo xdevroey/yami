@@ -27,7 +27,7 @@ import be.yami.SequenceProcessor;
  *
  * @author Xavier Devroey - xavier.devroey@unamur.be
  *
- * @param <T> The type of {@link UserSession} built.
+ * @param <S> The type of {@link UserSession} built.
  */
-public interface UserSessionProcessor<T extends UserSession<? extends UserRequest>> extends SequenceProcessor<T> {
+public interface UserSessionProcessor<S extends UserSession<? extends UserRequest>> extends SequenceProcessor<S> {
 }

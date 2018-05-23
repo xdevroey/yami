@@ -1,5 +1,6 @@
 package be.yami.java;
 
+import be.yami.Sequence;
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,11 +11,13 @@ import java.util.List;
  *
  * @author Xavier Devroey - xavier.devroey@gmail.com
  */
-public class CallSequence implements Iterable<MethodCall> {
+public class MethodCallSequence implements Sequence<MethodCall>{
 
+    private final String className;
     private final List<MethodCall> lst;
 
-    public CallSequence() {
+    public MethodCallSequence(String className) {
+        this.className = className;
         this.lst = new ArrayList<>();
     }
 
@@ -27,8 +30,22 @@ public class CallSequence implements Iterable<MethodCall> {
         return lst.size();
     }
 
+    public String getClassName() {
+        return className;
+    }
+    
+    public void add(MethodCall call){
+        lst.add(call);
+    }
+    
     @Override
     public Iterator<MethodCall> iterator() {
         return lst.iterator();
     }
+
+    @Override
+    public String toString() {
+        return "MethodCallSequence{" + "className=" + className + ", lst=" + lst + '}';
+    }
+    
 }

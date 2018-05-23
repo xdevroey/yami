@@ -19,6 +19,7 @@ package be.yami.web;
  * limitations under the License.
  * #L%
  */
+import be.yami.Sequence;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -31,9 +32,9 @@ import com.google.common.collect.Lists;
  *
  * @author Xavier Devroey - xavier.devroey@unamur.be
  *
- * @param <T> The type of user requests contained in the session.
+ * @param <E> The type of user requests contained in the session.
  */
-public class UserSession<T extends UserRequest> implements Iterable<T> {
+public class UserSession<E extends UserRequest> implements Sequence<E> {
 
     /**
      * The id of the user who issued this request.
@@ -55,7 +56,7 @@ public class UserSession<T extends UserRequest> implements Iterable<T> {
     /**
      * The list of requests.
      */
-    private final List<T> session;
+    private final List<E> session;
 
     /**
      * Creates a new session for the user identified by the given id.
@@ -121,7 +122,7 @@ public class UserSession<T extends UserRequest> implements Iterable<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return session.iterator();
     }
 
@@ -132,7 +133,7 @@ public class UserSession<T extends UserRequest> implements Iterable<T> {
      * @param request The request to add. Has to be later than the last request
      * added to the session (request.getTime() &gt; this.getEndTime() ).
      */
-    public void enqueue(T request) {
+    public void enqueue(E request) {
 //		checkArgument((this.endTime == null)
 //				|| (request.getTime().compareTo(endTime) >= 0));
         if (this.session.isEmpty()) {

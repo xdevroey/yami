@@ -19,6 +19,7 @@ package be.yami.web;
  * limitations under the License.
  * #L%
  */
+import be.yami.SequenceEntry;
 import java.util.Arrays;
 import java.util.Date;
 import static com.google.common.base.Preconditions.*;
@@ -29,7 +30,7 @@ import static com.google.common.base.Preconditions.*;
  * @author Xavier Devroey - xavier.devroey@unamur.be
  *
  */
-public class UserRequest {
+public class UserRequest implements SequenceEntry{
 
     /**
      * The client of the request : ip or host usually.

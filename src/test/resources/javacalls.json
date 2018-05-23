@@ -1,0 +1,126 @@
+{
+  "java.lang.IllegalStateException": [
+    [
+      {
+        "params": [
+          "java.lang.String"
+        ],
+        "methodName": "\u003cinit\u003e"
+      }
+    ],
+    [
+      {
+        "params": [
+          "java.lang.String"
+        ],
+        "methodName": "\u003cinit\u003e"
+      }
+    ]
+  ],
+  "org.apache.commons.lang3.builder.EqualsBuilderTest$TestACanEqualB": [
+    [
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      },
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      },
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      }
+    ],
+    [
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      }
+    ],
+    [
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      },
+      {
+        "params": [],
+        "methodName": "getA"
+      },
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      },
+      {
+        "params": [],
+        "methodName": "getA"
+      },
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      }
+    ],
+    [
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      },
+      {
+        "params": [],
+        "methodName": "getA"
+      },
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      },
+      {
+        "params": [],
+        "methodName": "getA"
+      },
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      },
+      {
+        "params": [],
+        "methodName": "getA"
+      }
+    ],
+    [
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      }
+    ],
+    [
+      {
+        "params": [
+          "java.lang.Object"
+        ],
+        "methodName": "equals"
+      }
+    ]
+  ]
+}

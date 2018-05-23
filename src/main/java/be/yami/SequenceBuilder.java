@@ -33,27 +33,27 @@ import be.yami.exception.SessionBuildException;
  *
  * @author Xavier Devroey - xavier.devroey@unamur.be
  *
- * @param <T> The type of sequence to consider.
- * @param <U> The type of entries in the sequence to consider.
+ * @param <S> The type of sequence to consider.
+ * @param <E> The type of entry in the sequence.
  */
-public abstract class SequenceBuilder<T extends Iterable<U>, U> {
+public abstract class SequenceBuilder<S extends Sequence<E>, E extends SequenceEntry> {
 
     /**
      * Listener notified when a session is built.
      */
-    private Vector<SequenceProcessor<T>> listeners;
+    private Vector<SequenceProcessor<S>> listeners;
 
     /**
      * Only entries satisfying all the include filters are considered for
      * sessions.
      */
-    private Vector<EntryFilter<U>> includes;
+    private Vector<EntryFilter<E>> includes;
 
     /**
-     * Only entries that does not satisfy all the exclude filters are
-     * considered for sessions.
+     * Only entries that does not satisfy all the exclude filters are considered
+     * for sessions.
      */
-    private Vector<EntryFilter<U>> excludes;
+    private Vector<EntryFilter<E>> excludes;
 
     /**
      * Creates a new user session builder.
@@ -71,7 +71,7 @@ public abstract class SequenceBuilder<T extends Iterable<U>, U> {
      * @param listener The listener to add.
      * @return This object.
      */
-    public SequenceBuilder<T, U> addListener(SequenceProcessor<T> listener) {
+    public SequenceBuilder<S, E> addListener(SequenceProcessor<S> listener) {
         this.listeners.add(listener);
         return this;
     }
@@ -79,34 +79,34 @@ public abstract class SequenceBuilder<T extends Iterable<U>, U> {
     /**
      * Notifies the listeners that the given session has been built.
      *
-     * @param session The session given to the listeners.
+     * @param sequence The sequence given to the listeners.
      */
-    protected void sessionCompleted(T session) {
-        for (SequenceProcessor<T> p : this.listeners) {
-            p.process(session);
+    protected void sequenceCompleted(S sequence) {
+        for (SequenceProcessor<S> p : this.listeners) {
+            p.process(sequence);
         }
     }
 
     /**
      * Add an include filter to this builder. Only entries satisfying all the
-     * include filters are added to sessions.
+     * include filters are added to sequences.
      *
      * @param filter The filter to add
      * @return This object.
      */
-    public SequenceBuilder<T, U> include(EntryFilter<U> filter) {
+    public SequenceBuilder<S, E> include(EntryFilter<E> filter) {
         this.includes.add(filter);
         return this;
     }
 
     /**
-     * Add an include filter to this builder. Only entries that does not
-     * satisfy all the exclude filters are added to sessions.
+     * Add an include filter to this builder. Only entries that does not satisfy
+     * all the exclude filters are added to sequences.
      *
      * @param filter The filter to add
      * @return This object.
      */
-    public SequenceBuilder<T, U> exclude(EntryFilter<U> filter) {
+    public SequenceBuilder<S, E> exclude(EntryFilter<E> filter) {
         this.excludes.add(filter);
         return this;
     }
@@ -119,10 +119,10 @@ public abstract class SequenceBuilder<T extends Iterable<U>, U> {
      * @return True if the entry satisfy all the include filters and does not
      * satisfy all the exclude filters.
      */
-    protected boolean isAcceptedRequest(U req) {
+    protected boolean isAcceptedEntry(E req) {
         boolean ok = true;
-        Iterator<EntryFilter<U>> it = this.includes.iterator();
-        EntryFilter<U> f;
+        Iterator<EntryFilter<E>> it = this.includes.iterator();
+        EntryFilter<E> f;
         // Check includes
         while (ok && it.hasNext()) {
             f = it.next();
@@ -138,10 +138,9 @@ public abstract class SequenceBuilder<T extends Iterable<U>, U> {
     }
 
     /**
-     * Build the session from the different entry of the {@link InputStream}.
-     * Each time a session is build, the sessionCompleted(Session) method is
-     * called to notify the listeners of the builder. All the entries in the
-     * builded sessions have to satisfy isAcceptedRequest(Request).
+     * Build the sequences from the different entry of the {@link InputStream}.
+     * Each time a sequence is built, the listeners are notified. All the
+     * entries in the builded sequence satisfy isAcceptedEntry(Entry).
      *
      * @param input The {@link InputStream} to read.
      * @throws SessionBuildException If an exception occurs during the building

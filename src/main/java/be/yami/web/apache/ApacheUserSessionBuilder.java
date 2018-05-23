@@ -146,7 +146,7 @@ public class ApacheUserSessionBuilder extends
                         groups = match.namedGroups();
                         userRequest = buildRequest(groups);
                         checkSessionsTimeout(userRequest.getTime());
-                        if (this.isAcceptedRequest(userRequest)) {
+                        if (this.isAcceptedEntry(userRequest)) {
                             addRequest(groups.get(HOST_DIRECTIVE), userRequest);
                         }
                     } else {
@@ -254,7 +254,7 @@ public class ApacheUserSessionBuilder extends
         while (it.hasNext()) {
             session = it.next();
             if (date.getTime() - session.getEndTime().getTime() > this.sessionTimeout) {
-                this.sessionCompleted(session);
+                this.sequenceCompleted(session);
                 it.remove();
             }
         }
@@ -265,7 +265,7 @@ public class ApacheUserSessionBuilder extends
      */
     private void flushSessions() {
         for (ApacheUserSession session : this.sessions.values()) {
-            this.sessionCompleted(session);
+            this.sequenceCompleted(session);
         }
         this.sessions.clear();
     }

@@ -39,7 +39,6 @@ import be.yami.web.apache.ApacheUserSessionBuilder;
 import be.yami.web.apache.ApacheUserSessionBuilderTest;
 import be.yami.web.apache.UserRequesRRNKeyGenerator;
 import be.vibes.ts.UsageModel;
-import be.yami.EntryFilter;
 
 public class BigramTest {
 
@@ -58,20 +57,12 @@ public class BigramTest {
 
 	@Test
     public void testBigramConstruction() throws Exception {
-        final Bigram<ApacheUserRequest> bigram = new Bigram<ApacheUserRequest>(UserRequesRRNKeyGenerator.getInstance());
+        final Bigram<ApacheUserRequest> bigram = new Bigram<>(UserRequesRRNKeyGenerator.getInstance());
         ApacheUserSessionBuilder builder = ApacheUserSessionBuilder.newInstance();
-        builder.addListener(new UserSessionProcessor<ApacheUserSession>() {
-            @Override
-            public void process(ApacheUserSession session) {
-                bigram.addTrace(session.iterator());
-            }
+        builder.addListener((UserSessionProcessor<ApacheUserSession>) (ApacheUserSession session) -> {
+            bigram.addTrace(session.iterator());
         });
-        builder.exclude(new EntryFilter<ApacheUserRequest>() {
-            @Override
-            public boolean filter(ApacheUserRequest request) {
-                return request.getClient().equals("0.0.0.0");
-            }
-        });
+        builder.exclude((ApacheUserRequest request) -> request.getClient().equals("0.0.0.0"));
         InputStream in = ApacheUserSessionBuilderTest.class.getClassLoader().getResourceAsStream("test.log");
         assertNotNull("Test file ''test.log'' not found!", in);
         builder.buildSessions(in);

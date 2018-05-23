@@ -1,7 +1,8 @@
 package be.yami.java;
 
+import be.yami.SequenceEntry;
 import com.google.common.base.Preconditions;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -11,27 +12,27 @@ import java.util.List;
  *
  * @author Xavier Devroey - xavier.devroey@gmail.com
  */
-public class MethodCall {
+public class MethodCall implements SequenceEntry{
 
-    private final String methodClass;
+    private final String className;
 
     private final String methodName;
 
     private final List<String> parameterTypes;
 
-    public MethodCall(String methodClass, String methodName, String... types) {
-        this(methodClass, methodName, Arrays.asList(types));
+    public MethodCall(String className, String methodName, String... types) {
+        this(className, methodName, Arrays.asList(types));
     }
 
     public MethodCall(String methodClass, String methodName, List<String> types) {
-        this.methodClass = methodClass;
+        this.className = methodClass;
         this.methodName = methodName;
-        this.parameterTypes = new VirtualFlow.ArrayLinkedList<>();
+        this.parameterTypes = new ArrayList<>();
         this.parameterTypes.addAll(types);
     }
 
     public String getMethodClass() {
-        return methodClass;
+        return className;
     }
 
     public String getMethodName() {
@@ -49,6 +50,11 @@ public class MethodCall {
 
     public Iterator<String> parameters() {
         return parameterTypes.iterator();
+    }
+
+    @Override
+    public String toString() {
+        return "MethodCall{" + "className=" + className + ", methodName=" + methodName + ", parameterTypes=" + parameterTypes + '}';
     }
 
 }

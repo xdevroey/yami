@@ -24,10 +24,9 @@ package be.yami;
  * Defines methods to filter the entries of type T.
  *
  * @author Xavier Devroey - xavier.devroey@unamur.be
- *
- * @param <T> The type of entry to consider.
+ * @param <T> The type of entry to filter.
  */
-public interface EntryFilter<T> {
+public interface EntryFilter<T extends SequenceEntry> {
 
     /**
      * Returns true if the given entry has to be filtered.

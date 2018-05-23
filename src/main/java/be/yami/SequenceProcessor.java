@@ -7,7 +7,7 @@ package be.yami;
  * @author Xavier Devroey - xavier.devroey@gmail.com
  * @param <T> The type of the elements in the sequence
  */
-public interface SequenceProcessor<T extends Iterable<?>> {
+public interface SequenceProcessor<T extends Sequence> {
 
     /**
      * This method is called by the SequenceBuilder when a sequence has been
