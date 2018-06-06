@@ -45,9 +45,9 @@ import static be.yami.web.apache.ApacheLogFormatPatternBuilder.*;
  * The default usage of this class is:
  *
  * <pre>
- * UserSessionProcessor&lt;ApacheUserSession&gt; listener;
- * UserRequestFilter&lt;ApacheUserRequest&gt; includeFilter;
- * UserRequestFilter&lt;ApacheUserRequest&gt; excludeFilter;
+ * SequenceProcessor&lt;ApacheUserSession&gt; listener;
+ * EntryFilter&lt;ApacheUserRequest&gt; includeFilter;
+ * EntryFilter&lt;ApacheUserRequest&gt; excludeFilter;
  * // ...
  * newInstance().logFormat(ApacheLogFormatPatternBuilder.COMMON_LOG_FORMAT)
  * 		.sessionTimeout(ApacheUserSessionBuilder.DEFAULT_TIMEOUT)

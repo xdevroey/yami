@@ -15,6 +15,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * This class is used to process JSON entries that describe sequences of method
+ * calls for Java classes. The default usage of this class is:
+ *
+ * <pre>
+ * SequenceProcessor&lt;MethodCallSequence&gt; listener;
+ * EntryFilter&lt;MethodCall&gt; includeFilter;
+ * EntryFilter&lt;MethodCall&gt; excludeFilter;
+ * // ...
+ * newInstance().include(includeFilter)
+ * 		.exclude(excludeFilter)
+ * 		.addListener(listener)
+ * 		.buildSessions(new FileInputStream(&quot;calls.json&quot;));
+ * </pre>
+ *
+ * The format of the JSON file must be a
+ * {@code HashMap<String, Set<List<MethodCalls>>>} generated from
+ * <a href="https://github.com/Mozhan/evosuite_extension/blob/5a1b0edb8ae18b4f756a85b593b78ef0930cd772/client/src/main/java/org/evosuite/seeding/MethodCalls.java">MethodCalls.java</a>.
  *
  * @author Xavier Devroey - xavier.devroey@gmail.com
  */
@@ -38,6 +55,18 @@ public class JsonMethodCallsSequenceBuilder extends SequenceBuilder<MethodCallSe
             return params;
         }
 
+    }
+
+    private JsonMethodCallsSequenceBuilder() {
+    }
+
+    /**
+     * Returns a new instance of this class.
+     *
+     * @return A fresh instance of this class.
+     */
+    public static JsonMethodCallsSequenceBuilder newInstance() {
+        return new JsonMethodCallsSequenceBuilder();
     }
 
     @Override

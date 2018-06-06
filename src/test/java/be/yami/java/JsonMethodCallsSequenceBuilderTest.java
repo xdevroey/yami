@@ -35,7 +35,7 @@ public class JsonMethodCallsSequenceBuilderTest {
     @Test
     public void testBuildSessions() throws Exception {
         InputStream is = JsonMethodCallsSequenceBuilderTest.class.getClassLoader().getResourceAsStream("javacalls.json");
-        JsonMethodCallsSequenceBuilder builder = new JsonMethodCallsSequenceBuilder();
+        JsonMethodCallsSequenceBuilder builder = JsonMethodCallsSequenceBuilder.newInstance();
         List<MethodCallSequence> result = new ArrayList<>();
         builder.addListener((seq) -> {
             result.add(seq);

@@ -43,8 +43,9 @@
         <hamcrest-all.version>1.3</hamcrest-all.version>
         <junit.version>4.12</junit.version>
         <named-regexp.version>0.2.3</named-regexp.version>
-        <log4j2.version>2.11.0</log4j2.version>
-        <vibes.version>2.0.2</vibes.version>
+        <log4j2.version>2.9.1</log4j2.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <vibes.version>2.0.5</vibes.version>
         <!-- Maven Plugins Versions -->
         <build-helper-maven-plugin.version>1.12</build-helper-maven-plugin.version>
         <license-maven-plugin.version>1.16</license-maven-plugin.version>
@@ -69,11 +70,6 @@
         <!-- See lib/README.txt to add this dependency to local repository <dependency> 
         <groupId>inferPfa</groupId> <artifactId>inferPFA</artifactId> <version>1.0.0</version> 
         </dependency> -->
-        <dependency>
-            <groupId>be.unamur.info</groupId>
-            <artifactId>vibes-core</artifactId>
-            <version>${vibes.version}</version>
-        </dependency>
         <dependency>
             <groupId>be.unamur.info</groupId>
             <artifactId>vibes-dsl</artifactId>
@@ -109,18 +105,13 @@
         <!-- Loggin API -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${log4j2.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${log4j2.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
     
