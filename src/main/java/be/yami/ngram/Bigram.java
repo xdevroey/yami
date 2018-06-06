@@ -75,7 +75,7 @@ public class Bigram<T extends SequenceEntry> implements NGram<T>{
         this.factory = new BigramUsageModelFactory(START_STATE_ID);
         this.statesIds = new HashMap<>();
         factory.addState(END_STATE_ID);
-        factory.addTransition(START_STATE_ID, Action.EPSILON_ACTION, START_STATE_ID);
+        factory.addTransition(END_STATE_ID, Action.EPSILON_ACTION, START_STATE_ID);
     }
 
     @Override

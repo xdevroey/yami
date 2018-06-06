@@ -40,15 +40,14 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This is the default Main class provided with the library. See source code for
- * usage model inference example.
+ * This is the Main class provided to process Apache Web Logs with this library.
  *
  * @author Xavier Devroey - xavier.devroey@unamur.be
  *
  */
-public class Main {
+public class MainWeb {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MainWeb.class);
 
     /**
      * Create a usage model from a WordPress Apache Log.

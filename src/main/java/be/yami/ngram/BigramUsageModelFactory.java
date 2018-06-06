@@ -66,7 +66,7 @@ public class BigramUsageModelFactory extends UsageModelFactory {
             String source = tr.getKey();
             int sourceCount = outgoingCount.get(source);
             tr.getValue().entrySet().forEach((dest) -> { // for each target state
-                String target = tr.getKey();
+                String target = dest.getKey();
                 dest.getValue().entrySet().forEach((act) -> { // for each action
                     String action = act.getKey();
                     int count = act.getValue();

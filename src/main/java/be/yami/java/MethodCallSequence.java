@@ -22,11 +22,12 @@ public class MethodCallSequence implements Sequence<MethodCall>{
     }
 
     public MethodCall get(int i) {
-        Preconditions.checkPositionIndex(i, callsCount(), "Index " + i + " out of bonds, must be between 0 and " + callsCount());
+        Preconditions.checkPositionIndex(i, size(), "Index " + i + " out of bonds, must be between 0 and " + size());
         return lst.get(i);
     }
 
-    public int callsCount() {
+    @Override
+    public int size() {
         return lst.size();
     }
 
@@ -37,7 +38,7 @@ public class MethodCallSequence implements Sequence<MethodCall>{
     public void add(MethodCall call){
         lst.add(call);
     }
-    
+
     @Override
     public Iterator<MethodCall> iterator() {
         return lst.iterator();

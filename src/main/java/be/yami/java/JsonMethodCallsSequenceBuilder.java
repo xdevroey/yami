@@ -90,7 +90,7 @@ public class JsonMethodCallsSequenceBuilder extends SequenceBuilder<MethodCallSe
                             seq.add(call);
                         }
                     }
-                    if (seq.callsCount() > 0) {
+                    if (seq.size() > 0) {
                         LOG.debug("Sequence completed: {}", seq);
                         sequenceCompleted(seq);
                     }

@@ -145,7 +145,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>be.unamur.inference.main.Main</mainClass>
+                            <mainClass>be.yami.main.MainJava</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -164,7 +164,7 @@
 
     <profiles>
         <profile>
-            <id>deploycentral</id> <!-- mvn release:prepare release:perform -P deploy -->
+            <id>release</id> <!-- mvn release:prepare release:perform -P release -->
             <build>
                 <plugins>
                     <!-- Add licenses to source code and project -->
