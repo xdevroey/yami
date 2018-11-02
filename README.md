@@ -2,6 +2,10 @@
 
 ![YAMI Logo](yami.png)
 
+[![Build Status](https://travis-ci.org/xdevroey/yami.svg?branch=master)](https://travis-ci.org/xdevroey/yami)
+[![Coverage Status](https://coveralls.io/repos/github/xdevroey/yami/badge.svg?branch=master)](https://coveralls.io/github/xdevroey/yami?branch=master)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/be.unamur.info/yami-tool/badge.svg)](https://maven-badges.herokuapp.com/maven-central/be.unamur.info/yami-tool/badge.svg)
+
 ## About
 
 Model inference has been developed over years for various purposes: reverse engineering
