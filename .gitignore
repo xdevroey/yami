@@ -6,3 +6,5 @@ target/
 .classpath
 **/.classpath
 /nbproject/
+.idea/
+yami-tool.iml
