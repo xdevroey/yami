@@ -22,8 +22,8 @@ import be.yami.SequenceProcessor;
  * #L%
  */
 /**
- * Interface declaring methods to process the sessions built by a
- * {@link UserSessionBuilder} object.
+ * Interface declaring methods to process the sessions built by a web
+ * {@link be.yami.SequenceBuilder} object.
  *
  * @author Xavier Devroey - xavier.devroey@unamur.be
  *
